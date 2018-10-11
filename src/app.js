@@ -50,9 +50,10 @@ class IndecisionApp extends React.Component {
     //handleAddOption - pass down to Add Option - setup onClick - add to options array - re-render components
     handleAddOptionSubmit(option) {
         if(!option) {
-            alert('Enter Valid String!') 
+            return "Enter valid value to add item"
+        } else if (this.state.options.indexOf(option) > -1) {
+            return 'this option already exists'
         }
-
         this.setState((prevState) => {
             return {
                 options: prevState.options.concat(option)
@@ -121,18 +122,26 @@ class AddOption extends React.Component {
     constructor(props) {
         super(props)
         this.handleAddOption = this.handleAddOption.bind(this)
+        this.state = {
+            error: undefined 
+        };
     }
 
     handleAddOption(e) {
         e.preventDefault(); 
-        const option = e.target.elements.option.value; 
-        if(option) {
-            this.props.handleAddOptionSubmit(option); 
-        }
+        const option = e.target.elements.option.value;
+        const error = this.props.handleAddOptionSubmit(option);
+        this.setState(() => {
+            return {
+                error: error 
+            }; 
+        })
+        
     }
     render(){
         return (
             <div>
+            {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}>
                     <input 
                         type="text" 
