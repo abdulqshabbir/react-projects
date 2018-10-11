@@ -62,59 +62,53 @@ class IndecisionApp extends React.Component {
     }
 }
 
-class Header extends React.Component{
-    render() {// mandatory. Returns JSX. 
-        console.log(this.props)
-        return (// Header is a class which inherits all methods/properties of React.Component and returns jsx
-            <div>
-                <h1>{this.props.title}</h1>
-                <h3>{this.props.subtitle}</h3>
-                <p>Put your life in the hands of a computer!</p>
-            </div>
-        );
-    }
-}
+const Header = (props) => {
+    return (
+        <div>
+            <h1>{props.title}</h1>
+            <h3>{props.subtitle}</h3>
+            <p>Put your life in the hands of a computer!</p>
+        </div>
+    ); 
+};
 
-class Action extends React.Component {
-    render() {
-        return (
-            <div>
-                <button 
-                    onClick={this.props.handlePick}
-                    disabled={!this.props.hasOptions}
-                >
-                    What should I do?
-                </button>
-            </div>
-        );
-    }
-}
+const Action = (props) => {
+    return (
+        <div>
+            <button 
+                onClick={props.handlePick}
+                disabled={!props.hasOptions}
+            >
+                What should I do?
+            </button>
+        </div>
+    );
+};
 
-class Options extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render(){
-        return (
-            <div>
-                <button onClick={this.props.handleDeleteOptions}>
-                    Remove Options
-                </button>
+const Options = (props) => {
+    return(
+        <div>
+            <button onClick={props.handleDeleteOptions}>
+                Remove Options
+            </button>
                 {
-                    this.props.options.map((option) => <Option key={option} optionText={option}/>)
+                    props.options.map(
+                        (option) => 
+                            <Option 
+                                key={option}
+                                optionText={option}
+                            />
+                    )
                 }
-            </div>
-        ); 
-    }
-}
+        </div>
+    ); 
+}; 
 
-class Option extends React.Component {
-    render() {
-        return (
-            <div>{this.props.optionText}</div>
-        ); 
-    }
-}
+const Option = (props) => {
+    return(
+        <div>{props.optionText}</div>
+    ); 
+}; 
 
 // option => 'option component here'
 
@@ -154,7 +148,10 @@ class AddOption extends React.Component {
     }
 }
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
+ReactDOM.render(< IndecisionApp />, document.getElementById('app'))
+
+// stateless functional component
+
 
 
 //======================IMPORTANT REACT TAKEAWAYS==========================/
@@ -165,4 +162,6 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 //5. To pass state down to children, pass them as props
 //6. To pass state changes from children upto the parent, invoke a FUNCTION that lives on the
     // parent component (and has been passed down to the child as a prop)
+//7. Stateless functional components can be used to simplify simple stateless components
+
  
