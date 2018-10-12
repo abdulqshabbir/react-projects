@@ -3,6 +3,7 @@ import AddOption from './AddOption'
 import Action from './Action'
 import Header from './Header'
 import Options from './Options'
+import OptionModal from './OptionModal'
 
 export default class IndecisionApp extends React.Component {
     constructor(props) {
@@ -11,8 +12,10 @@ export default class IndecisionApp extends React.Component {
         this.handlePick = this.handlePick.bind(this) 
         this.handleAddOptionSubmit = this.handleAddOptionSubmit.bind(this)
         this.handleDeleteOption = this.handleDeleteOption.bind(this)
+        this.clearModal = this.clearModal.bind(this)
         this.state = {
             options: [],
+            selectedOption: undefined
         };
     }
 
@@ -36,8 +39,20 @@ export default class IndecisionApp extends React.Component {
                     newOption = {this.state.newOption}
                     handleAddOptionSubmit = {this.handleAddOptionSubmit}
                 />
+                <OptionModal 
+                    selectedOption={this.state.selectedOption}
+                    clearModal={this.clearModal}
+                />
             </div>
         );
+    }
+
+    clearModal() {
+        this.setState(() => {
+            return {
+                selectedOption: undefined
+            };
+        })
     }
 
     componentDidMount() {
@@ -85,7 +100,11 @@ export default class IndecisionApp extends React.Component {
     //handlePick - pass down to Action - setup onClick - randomly click an option and select it
     handlePick() {
         const howManyOptions = Math.floor(this.state.options.length*Math.random())
-        alert(this.state.options[howManyOptions])
+        this.setState(() => {
+            return {
+                selectedOption: this.state.options[howManyOptions]
+            }; 
+        })
     }
     
     //handleAddOption - pass down to Add Option - setup onClick - add to options array - re-render components
