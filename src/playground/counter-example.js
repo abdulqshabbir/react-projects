@@ -1,6 +1,8 @@
 // Main: Counter component
 // Children: CountDisplay, Increment, Decrement, Reset
 
+//take prop count from application - if no count provided...  - setup default prop value to 0
+
 class CounterApplication extends React.Component {
     constructor(props) {
         super(props)
@@ -8,7 +10,7 @@ class CounterApplication extends React.Component {
         this.onCounterDecrement = this.onCounterDecrement.bind(this)
         this.onCounterReset = this.onCounterReset.bind(this)
         this.state = {//set-up default state value
-            count: 0
+            count: props.initialCount
         }; 
     }
     onCounterIncrement() {
@@ -47,7 +49,11 @@ class CounterApplication extends React.Component {
     }
 }
 
+CounterApplication.defaultProps = {
+    count: 0
+};
+
 //render final application;
 const appLocation = document.getElementById('app')
-ReactDOM.render(<CounterApplication />, appLocation)
+ReactDOM.render(<CounterApplication initialCount={-110}/>, appLocation)
 

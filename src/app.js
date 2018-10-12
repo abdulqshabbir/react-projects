@@ -4,7 +4,7 @@ class IndecisionApp extends React.Component {
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
         this.handlePick = this.handlePick.bind(this) 
         this.handleAddOptionSubmit = this.handleAddOptionSubmit.bind(this)
-
+        this.handleDeleteOption = this.handleDeleteOption.bind(this)
         this.state = {
             options: [],
         };
@@ -23,6 +23,7 @@ class IndecisionApp extends React.Component {
                 <Options 
                     options={this.state.options}
                     handleDeleteOptions={this.handleDeleteOptions}
+                    handleDeleteOption={this.handleDeleteOption}
                 />
                 <AddOption 
                     options = {this.state.options}
@@ -33,12 +34,42 @@ class IndecisionApp extends React.Component {
         );
     }
 
+    componentDidMount() {
+        if(localStorage.getItem('options')) {
+            let optionsFromLastVisit = JSON.parse(localStorage.getItem('options'))
+            this.setState(() => {
+                return {
+                    options: optionsFromLastVisit
+                };
+            }); 
+        }
+        console.log('fetching data!')
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        //anytime state or props change
+        if(prevState.options.length !== this.state.options.length) {
+            localStorage.setItem('options', JSON.stringify(this.state.options))
+            console.log('saving data to local storage!')
+        }
+    }
+
+    componentWillUnmount() {
+        console.log('component will unmount')
+    }
+
     handleDeleteOptions() {
-        this.setState(() => {
+        this.setState(() => ({options: []}));
+    }
+
+    handleDeleteOption(optionToRemove) {
+        this.setState((prevState) => {
             return {
-                options: [] 
+                options: prevState.options.filter((option) => {
+                    return optionToRemove!== option
+                })
             };
-        })
+        }); 
     }
 
     //handlePick - pass down to Action - setup onClick - randomly click an option and select it
@@ -72,6 +103,10 @@ const Header = (props) => {
     ); 
 };
 
+Header.defaultProps = {
+    title: 'Some default Title'
+}; 
+
 const Action = (props) => {
     return (
         <div>
@@ -97,6 +132,7 @@ const Options = (props) => {
                             <Option 
                                 key={option}
                                 optionText={option}
+                                handleDeleteOption={props.handleDeleteOption}
                             />
                     )
                 }
@@ -106,7 +142,16 @@ const Options = (props) => {
 
 const Option = (props) => {
     return(
-        <div>{props.optionText}</div>
+        <div>
+            {props.optionText}
+            <button 
+                onClick={(e) => {
+                    props.handleDeleteOption(props.optionText);
+                }}
+            >        
+                remove
+            </button>
+        </div>
     ); 
 }; 
 
@@ -125,12 +170,7 @@ class AddOption extends React.Component {
         e.preventDefault(); 
         const option = e.target.elements.option.value;
         const error = this.props.handleAddOptionSubmit(option);
-        this.setState(() => {
-            return {
-                error: error 
-            }; 
-        })
-        
+        this.setState(() => ({error: error}))
     }
     render(){
         return (
