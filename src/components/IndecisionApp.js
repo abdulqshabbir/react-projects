@@ -21,24 +21,29 @@ export default class IndecisionApp extends React.Component {
 
     render() {
         const title = 'Indecision Application' 
-        const subtitle = 'Very cool subtitle'
+        const subtitle = 'Put your life in the hands of a computer'
             return (
             <div>
-                <Header title={title} subtitle={subtitle}/> 
-                <Action
-                    hasOptions={this.state.options.length > 0}
-                    handlePick={this.handlePick}
-                /> 
-                <Options 
-                    options={this.state.options}
-                    handleDeleteOptions={this.handleDeleteOptions}
-                    handleDeleteOption={this.handleDeleteOption}
-                />
-                <AddOption 
-                    options = {this.state.options}
-                    newOption = {this.state.newOption}
-                    handleAddOptionSubmit = {this.handleAddOptionSubmit}
-                />
+                <Header title={title} subtitle={subtitle}/>
+
+                <div className="container">
+                    <Action
+                        hasOptions={this.state.options.length > 0}
+                        handlePick={this.handlePick}
+                    /> 
+                    <div className="widget">
+                        <Options 
+                            options={this.state.options}
+                            handleDeleteOptions={this.handleDeleteOptions}
+                            handleDeleteOption={this.handleDeleteOption}
+                        />
+                        <AddOption 
+                            options = {this.state.options}
+                            newOption = {this.state.newOption}
+                            handleAddOptionSubmit = {this.handleAddOptionSubmit}
+                        />
+                    </div>
+                </div>
                 <OptionModal 
                     selectedOption={this.state.selectedOption}
                     clearModal={this.clearModal}
@@ -110,9 +115,9 @@ export default class IndecisionApp extends React.Component {
     //handleAddOption - pass down to Add Option - setup onClick - add to options array - re-render components
     handleAddOptionSubmit(option) {
         if(!option) {
-            return "Enter valid value to add item"
+            return "Enter some text!"
         } else if (this.state.options.indexOf(option) > -1) {
-            return 'this option already exists'
+            return "The option you've entered already exists!"
         }
         this.setState((prevState) => {
             return {

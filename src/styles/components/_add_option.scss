@@ -1,0 +1,11 @@
+.add-option--error {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    background: $purple; 
+    border: none;
+    padding: 5%; 
+    font-size: $l-size; 
+    color: white;
+    font-weight: 300; 
+}

@@ -1,0 +1,32 @@
+.main-button {
+    background: $purple;
+    border: none; 
+    border-bottom: .6rem solid darken($purple, 10%);
+    border-right: .6rem solid darken($purple, 20%);
+    color: white; 
+    font-weight: bold; 
+    font-size: $l-size; 
+    padding: $s-size;
+    width: 100%;
+    margin-bottom: $l-size; 
+}
+
+.small-button {
+    background: $purple; 
+    border: none; 
+    color: white; 
+    font-weight: 500;
+    font-size: $m-size;
+    border-bottom: 0.3rem solid darken($purple, 10%);
+    border-right: 0.3rem solid darken($purple, 20%);
+    padding: $s-size; 
+}
+
+//block-element-modifier
+
+.button--link {
+    background: none;
+    border: none; 
+    color: $off-white; 
+    padding: 0; 
+}

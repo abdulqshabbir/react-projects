@@ -1,0 +1,23 @@
+//widget header 
+
+.widget {
+    background-color: $light-blue; 
+}
+
+.widget-header {
+    font-size: $m-size; 
+    background: $blue;
+    color: $off-white; 
+    padding: $m-size;
+    display: flex; 
+    justify-content: space-between; 
+}
+
+.widget-header__title {
+    margin: 0; 
+}
+
+.widget-header__no-options {
+    display: flex; 
+    justify-content: space-around
+}

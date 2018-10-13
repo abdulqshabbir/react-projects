@@ -1,0 +1,12 @@
+.ReactModalPoral > div {
+    opacity: 0; 
+}
+
+.ReactModalPoral .ReactModal__Overlay {
+    opacity: 1; 
+    transition: opacity 200ms ease-in-out; 
+}
+
+.ReactModalPoral .ReactModal__Overlay--after-open {
+    opacity: 1; 
+}

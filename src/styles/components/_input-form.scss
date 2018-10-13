@@ -1,0 +1,12 @@
+.input-form {
+    display: flex; 
+    justify-content: space-between
+}
+
+.input-form__text {
+    width: 83%;
+    background: $blue; 
+    border: none;
+    font-size: $l-size; 
+    color: $off-white; 
+}
